@@ -1,4 +1,7 @@
 @extends('templates.home')
+@section('title')
+    Map
+@endsection
 @section('costumestyle')
     <style>
         #mapid {
@@ -15,6 +18,20 @@
             <div id='mapid'>
 
             </div>
+            {{-- form filter di map untuk menapilkan sesuai yg dipilih --}}
+            <form>
+                <div class="form-group mt-4">
+                    <select name="filter" class="form-control">
+                        {{-- perulangan memuat kategori yg ada --}}
+                        @foreach ($data_filter_option as $item)
+                            <option value="{{ $item->kategori }}">{{ $item->kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit" name="submit">Cari</button>
+                </div>
+            </form>
         </div>
     </div>
 @stop
@@ -29,11 +46,14 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        // perulangan untuk menampilkan semua data pada map
         var i = 0;
         for (i; i<lokasi.length;i++){
+            //membuat link detail var i sebagai index
+            var detail = "<a href = '/detail/" + i + "' > Detail </a>";
             //memasukan variabel lokasi ke dalam map
             L.marker([lokasi[i].lat, lokasi[i].longt]).addTo(map)
-            .bindPopup(lokasi[i].nama_tempat)
+            .bindPopup(lokasi[i].nama_tempat + " " + detail)
             .openPopup();
 
         }

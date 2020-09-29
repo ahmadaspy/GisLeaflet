@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'location@show_location');
+Route::get('/input', 'location@table_location');

@@ -16,6 +16,7 @@ class CreateLokasiTable extends Migration
         Schema::create('lokasi', function (Blueprint $table) {
             $table->id();
             $table->string('nama_tempat');
+            $table->string('kategori');
             $table->double('lat');
             $table->double('longt');
             $table->timestamps();
