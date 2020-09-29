@@ -22,6 +22,7 @@
             <form>
                 <div class="form-group mt-4">
                     <select name="filter" class="form-control">
+                            <option value="" disabled selected>Pilih Kategori</option>
                         {{-- perulangan memuat kategori yg ada --}}
                         @foreach ($data_filter_option as $item)
                             <option value="{{ $item->kategori }}">{{ $item->kategori }}</option>

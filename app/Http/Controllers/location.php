@@ -21,6 +21,11 @@ class location extends Controller
         return view('gis.gis', compact('data','data_filter_option'));
     }
     public function table_location(){
-        return view ('gis.tabel_lokasi');
+        $data = lokasi::simplePaginate(8);
+        return view ('gis.tabel_lokasi', compact('data'));
+    }
+    public function edit_location($id){
+        $data = lokasi::find($id);
+        return view('gis.edit_location', compact('data'));
     }
 }
