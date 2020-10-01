@@ -16,12 +16,13 @@
   <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  {{-- leaflet --}}
+  <!-- Custom styles for this template-->
+  <link href="{{ asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+
+  {{-- leflet css --}}
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
   crossorigin=""/>
-  <!-- Custom styles for this template-->
-  <link href="{{ asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
 
   {{-- costume style --}}
   @yield('costumestyle')
@@ -53,11 +54,6 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
-      <li class="nav-item @if(Request::is('/input')) active @endif">
-        <a class="nav-link" href="/input">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Input Map</span></a>
-      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -69,6 +65,20 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseAdmin">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Admin Menu</span>
+        </a>
+        <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Menu:</h6>
+            <a class="collapse-item" href="/input">Input Data</a>
+            <a class="collapse-item" href="/data">Semua Data</a>
+          </div>
+        </div>
+      </li>
+{{--
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
           <span>Components</span>
@@ -77,7 +87,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Components:</h6>
             <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
+            <a class="collapse-item" href="/input">Cards</a>
           </div>
         </div>
       </li>
@@ -142,7 +152,7 @@
       </li>
 
       <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
+      <hr class="sidebar-divider d-none d-md-block"> --}}
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">

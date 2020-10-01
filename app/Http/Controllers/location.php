@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\lokasi;
 use App\User;
+use App\kategori;
 
 class location extends Controller
 {
@@ -26,6 +27,10 @@ class location extends Controller
     }
     public function edit_location($id){
         $data = lokasi::find($id);
-        return view('gis.edit_location', compact('data'));
+        $data_kategori = kategori::all();
+        return view('gis.edit_location', compact('data','data_kategori'));
+    }
+    public function input(){
+        return view('input_data');
     }
 }
