@@ -31,6 +31,16 @@ class location extends Controller
         return view('gis.edit_location', compact('data','data_kategori'));
     }
     public function input(){
-        return view('input_data');
+        $data_kategori = kategori::all();
+        return view('gis.input_data', compact('data_kategori'));
+    }
+    public function input_data(Request $request){
+        $data = lokasi::create($request->all());
+        if($data->exists){
+            return redirect()->route('input')->with('sukses', 'data berhasil di tambahkan');
+        }else{
+            return redirect()->route('input')->with('gagal', 'data gagal di inputkan');
+        }
+
     }
 }

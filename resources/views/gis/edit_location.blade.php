@@ -10,6 +10,7 @@
         </div>
         <div class="card-body">
             <form action="" method="POST">
+                {{ csrf_field() }}
                 <div class="form-group">
                     <label for="nama_tempat">Nama Tempat</label>
                     <input id="nama_tempat" class="form-control" value="{{ $data->nama_tempat }}">
