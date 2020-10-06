@@ -6,6 +6,7 @@
     <style>
         #mapid {
             height: 500px;
+            z-index: 0;
         }
     </style>
 @stop
@@ -15,7 +16,7 @@
             <h6 class="m-0 font-weight-bold text-primary">MAP</h6>
         </div>
         <div class="card-body">
-            <div id='mapid'>
+            <div id='mapid' class="mx-auto">
 
             </div>
             {{-- form filter di map untuk menapilkan sesuai yg dipilih --}}
@@ -24,8 +25,8 @@
                     <select name="filter" class="form-control">
                             <option value="" disabled selected>Pilih Kategori</option>
                         {{-- perulangan memuat kategori yg ada --}}
-                        @foreach ($data_filter_option as $item)
-                            <option value="{{ $item->kategori }}">{{ $item->kategori }}</option>
+                        @foreach ($data_kategori as $item)
+                            <option value="{{ $item->id }}">{{ $item->kategori }}</option>
                         @endforeach
                     </select>
                 </div>

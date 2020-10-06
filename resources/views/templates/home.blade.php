@@ -252,8 +252,9 @@
   {{-- leaflet js --}}
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-  crossorigin=""></script>
-  @yield('scriptjsleaflet')
+  crossorigin="">
+  </script>
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="{{ asset('assets/vendor/jquery/jquery.min.js')}}"></script>
@@ -271,6 +272,7 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset('assets/js/demo/chart-area-demo.js')}}"></script>
   <script src="{{ asset('assets/js/demo/chart-pie-demo.js')}}"></script>
+  @yield('scriptjsleaflet')
 
 
 

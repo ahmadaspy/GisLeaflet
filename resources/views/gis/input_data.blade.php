@@ -2,6 +2,14 @@
 @section('title')
     Input Data
 @endsection
+@section('costumestyle')
+    <style>
+    #mapid {
+        height: 400px;
+        z-index: 0;
+    }
+    </style>
+@endsection
 @section('content')
     <div class="container">
         @if(session()->has('sukses'))
@@ -19,7 +27,7 @@
             <h6 class="m-0 font-weight-bold text-primary">Input</h6>
         </div>
         <div class="card-body">
-            <div id="map">
+            <div id='mapid'>
 
             </div>
             <div class="container">
@@ -31,9 +39,9 @@
                     </div>
                     <div class="form-group">
                         <label for="kategori">Kategori</label>
-                        <select class="form-control" id="kategori" name="kategori">
+                        <select class="form-control" id="kategori" name="kategori_id">
                             @foreach ($data_kategori as $item)
-                                <option value="{{ $item->kategori }}">{{ $item->kategori }}</option>
+                                <option value="{{ $item->id }}">{{ $item->kategori }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -60,4 +68,18 @@
 
     </div>
 
+@endsection
+@section('scriptjsleaflet')
+    <script>
+        var map = L.map('mapid').setView([51.505, -0.09], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        L.marker([51.5, -0.09]).addTo(map)
+            .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+            .openPopup();
+
+    </script>
 @endsection

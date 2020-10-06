@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'location@show_location');
 
 
-Route::get('/data', 'location@table_location');
+Route::get('/data', 'location@table_location')->name('tabeldata');
 
 Route::get('/edit/{id}', 'location@edit_location');
 Route::get('/input', 'location@input')->name('input');
 Route::post('/input_data', 'location@input_data');
+Route::Post('/edit', 'location@edit');
+Route::get('/hapus/{id}', 'location@hapus');
 
