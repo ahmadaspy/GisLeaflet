@@ -57,8 +57,7 @@
             L.marker([lokasi[i].lat, lokasi[i].longt]).addTo(map)
             .bindPopup(lokasi[i].nama_tempat + " " + detail)
             .openPopup();
-
         }
-
+        map.locate({setView: true, maxZoom: 12});
     </script>
 @stop

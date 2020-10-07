@@ -1,6 +1,6 @@
 @extends('templates.home')
 @section('title')
-{{ $data->name }}
+    {{ $data->nama_tempat }}
 @endsection
 @section('costumestyle')
     <style>
@@ -53,16 +53,48 @@
 @section('scriptjsleaflet')
     <script>
         var lokasi = {!! json_encode($data->toArray(), JSON_HEX_TAG) !!};
-        var map = L.map('mapid').setView([lokasi.lat, lokasi.longt], 10);
+        // var map = L.map('mapid').setView([lokasi.lat, lokasi.longt], 10);
+        // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        //     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        // }).addTo(map);
+
+        // var detail = "<a href = '/detail/" + lokasi.id + "' > Detail </a>";
+
+        // L.marker([lokasi.lat, lokasi.longt]).addTo(map)
+        //     .bindPopup(lokasi.nama_tempat + " " + detail)
+        //     .openPopup();
+
+        var center = [lokasi.lat, lokasi.longt ]
+        var map = L.map('mapid').setView(center, 15);
+
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        var detail = "<a href = '/detail/" + lokasi.id + "' > Detail </a>";
-
-        L.marker([lokasi.lat, lokasi.longt]).addTo(map)
-            .bindPopup(lokasi.nama_tempat + " " + detail)
+        var marker = L.marker(center).addTo(map);
+        function updateMarker(lat, lng) {
+            marker
+            .setLatLng([lat, lng])
+            .bindPopup("Lokasi ini ?")
             .openPopup();
+            return false;
+        };
+
+        map.on('click', function(e) {
+            let latitude = e.latlng.lat.toString().substring(0, 15);
+            let longitude = e.latlng.lng.toString().substring(0, 15);
+            $('#lat').val(latitude);
+            $('#longt').val(longitude);
+            updateMarker(latitude, longitude);
+         });
+
+        var updateMarkerByInputs = function() {
+            return updateMarker( $('#lat').val() , $('#longt').val());
+        }
+        $('#lat').on('input', updateMarkerByInputs);
+        $('#longt').on('input', updateMarkerByInputs);
+
+
 
     </script>
 @endsection
