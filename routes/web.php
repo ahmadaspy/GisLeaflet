@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'location@show_location');
+Route::get('/detail/{id}', 'location@detail');
 
 
 Route::get('/data', 'location@table_location')->name('tabeldata');

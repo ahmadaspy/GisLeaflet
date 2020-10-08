@@ -2,6 +2,13 @@
 @section('title')
     tabel data
 @endsection
+@section('costumestyle')
+    <style>
+        #aksi{
+            text-align: center;
+        }
+    </style>
+@endsection
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -11,7 +18,7 @@
             <table class="table">
                 <tr>
                     <th>No</th>
-                    <th colspan="2">aksi</th>
+                    <th colspan="3" id="aksi">aksi</th>
                     <th>Nama Tempat</th>
                     <th>Kategori</th>
                     <th>Garis Lintang</th>
@@ -21,6 +28,7 @@
                 <tr>
                     <td>{{ $data->firstItem() + $key}}</td>
                     <td><a href="/edit/{{ $item->id }}" class="btn btn-success">Edit</a></td>
+                    <td><a href="/edit/detail/{{ $item->id }}" class="btn btn-primary">Edit Detail</a></td>
                     <td><a href="/hapus/{{ $item->id }}" class="btn btn-danger">Hapus</a></td>
                     <td>{{ $item->nama_tempat }}</td>
                     <td>{{ $item->kategori->kategori }}</td>

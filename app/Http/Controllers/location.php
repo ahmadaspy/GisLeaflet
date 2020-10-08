@@ -22,6 +22,13 @@ class location extends Controller
         return view('gis.gis', compact('data', 'data_kategori'));
     }
 
+    // menampilkan halaman detail
+    public function detail($id){
+        $data = lokasi::find($id);
+        return view('gis.detail', compact('data'));
+    }
+
+
     // menampilkan data tabel ke halaman admin
     public function table_location(){
         $data = lokasi::simplePaginate(8);
