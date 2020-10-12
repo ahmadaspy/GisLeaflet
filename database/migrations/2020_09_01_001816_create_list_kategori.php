@@ -18,7 +18,9 @@ class CreateListKategori extends Migration
             $table->string('kategori');
             $table->timestamps();
         });
+
     }
+
 
     /**
      * Reverse the migrations.

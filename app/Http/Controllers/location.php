@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\lokasi;
 use App\User;
 use App\kategori;
+use Carbon\Carbon;
+use App\detail;
 
 class location extends Controller
 {
@@ -32,6 +34,7 @@ class location extends Controller
     // menampilkan data tabel ke halaman admin
     public function table_location(){
         $data = lokasi::simplePaginate(8);
+
         return view ('gis.tabel_lokasi', compact('data'));
     }
 
@@ -62,6 +65,7 @@ class location extends Controller
     public function input_data(Request $request){
         $data = lokasi::create($request->all());
         if($data->exists){
+            $data_detail = detail::insert(['lokasi_id' => $data->id]);
             return redirect()->route('input')->with('sukses', 'data berhasil di tambahkan');
         }else{
             return redirect()->route('input')->with('gagal', 'data gagal di inputkan');

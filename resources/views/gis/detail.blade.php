@@ -36,12 +36,14 @@
           </div>
           <div class="card">
               <div class="card-body">
-                  <div class="card-title">
+                <div class="card-title">
                     <h3>{{ $data->nama_tempat }}</h3>
-                  </div>
-                  <p>
-
-                  </p>
+                </div>
+                <p>
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+                      </div>
+                </p>
               </div>
           </div>
     </div>

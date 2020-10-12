@@ -184,7 +184,11 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+
+                {{-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Carbon\Carbon::now()->translatedFormat('l, d F Y') }} </span> --}}
+                {{-- <span id="waktu" class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Carbon\Carbon::now()->translatedFormat('H:i:s') }}</span> --}}
+                {{-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Carbon\Carbon::now()->translatedFormat('A') }} </span> --}}
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Orang </span>
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -272,6 +276,43 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset('assets/js/demo/chart-area-demo.js')}}"></script>
   <script src="{{ asset('assets/js/demo/chart-pie-demo.js')}}"></script>
+  {{-- <script>
+      var serverClock = jQuery("#waktu");
+if (serverClock.length > 0) {
+    showServerTime(serverClock, serverClock.text());
+}
+
+function showServerTime(obj, time) {
+    var parts   = time.split(":"),
+        newTime = new Date();
+
+    newTime.setHours(parseInt(parts[0], 10));
+    newTime.setMinutes(parseInt(parts[1], 10));
+    newTime.setSeconds(parseInt(parts[2], 10));
+
+    var timeDifference  = new Date().getTime() - newTime.getTime();
+
+    var methods = {
+        displayTime: function () {
+            var now = new Date(new Date().getTime() - timeDifference);
+            obj.text([
+                methods.leadZeros(now.getHours(), 2),
+                methods.leadZeros(now.getMinutes(), 2),
+                methods.leadZeros(now.getSeconds(), 2)
+            ].join(":"));
+            setTimeout(methods.displayTime, 500);
+        },
+
+        leadZeros: function (time, width) {
+            while (String(time).length < width) {
+                time = "0" + time;
+            }
+            return time;
+        }
+    }
+    methods.displayTime();
+}
+  </script> --}}
   @yield('scriptjsleaflet')
 
 
