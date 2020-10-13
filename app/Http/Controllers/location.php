@@ -8,6 +8,8 @@ use App\User;
 use App\kategori;
 use Carbon\Carbon;
 use App\detail;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Storage;
 
 class location extends Controller
 {
@@ -44,10 +46,31 @@ class location extends Controller
         $data_kategori = kategori::all();
         return view('gis.edit_location', compact('data','data_kategori'));
     }
+
     // memasukan data edit kedalam database
     public function edit(Request $request){
         $data = lokasi::where('id', $request->id)->update(['kategori_id' => $request->kategori_id, 'nama_tempat' => $request->nama_tempat, 'lat'=> $request->lat,'longt' => $request->longt]);
         return redirect()->route('tabeldata');
+    }
+
+    // menampilkan halam edit detail pada admin
+    public function edit_detail($id){
+        $data = detail::find($id);
+        return view('gis.edit_detail', compact('data'));
+    }
+
+    // store edit data detail
+    public function edit_detail_data(Request $request){
+        $data = detail::find($request->id);
+
+        // $store_1 = $request->gambar_1->store('images/'.$data->lokasi->nama_tempat, 'public');
+        // $gambar_1 = Storage::putFile('public/images', $request->gambar_1);
+        $gambar_1 = Storage::delete(['public/images/xQjeoMfds058bD4I0Z3mPB7J5Ipz1O96nR8EYaCD.jpeg']);
+        dd($gambar_1);
+        if($request->gambar)
+
+        $store_2 = $request->gambar_2->store('images/'.$data->lokasi->nama_tempat, 'public');
+        $store_3 = $request->gambar_3->store('images/'.$data->lokasi->nama_tempat, 'public');
     }
 
     // menghapus data di dalam tabel dan database

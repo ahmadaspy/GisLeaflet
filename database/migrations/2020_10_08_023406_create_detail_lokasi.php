@@ -18,7 +18,9 @@ class CreateDetailLokasi extends Migration
             $table->unsignedBigInteger('lokasi_id');
             $table->string('judul')->nullable();
             $table->text('deskripsi')->nullable();
-            $table->string('gambar')->nullable();
+            $table->string('gambar_1')->nullable();
+            $table->string('gambar_2')->nullable();
+            $table->string('gambar_3')->nullable();
             $table->string('link_video')->nullable();
             $table->timestamps();
             $table->foreign('lokasi_id')->references('id')->on('lokasi')->onDelete('cascade');
