@@ -16,7 +16,8 @@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="{{ asset('img/default.png') }}" class="d-block w-100" alt="ini gambar">
+                <img src="{{ asset('storage/app'.$data->detail->gambar_1) }}" class="d-block w-100" alt="ini gambar">
+                {{ $data->detail->gambar_1 }}
               </div>
               <div class="carousel-item">
                 <img src="{{ asset('img/default.png') }}" class="d-block w-100" alt="ini gambar">

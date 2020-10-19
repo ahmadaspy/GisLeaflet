@@ -62,21 +62,50 @@ class location extends Controller
     // store edit data detail
     public function edit_detail_data(Request $request){
         $data = detail::find($request->id);
+        $data->judul = $request->judul;
+        $data->deskripsi = $request->deskripsi;
+        $data->link_video = $request->link_video;
+        $data->save();
+        if($request->hasFile('gambar_1')){
+            Storage::disk('public')->delete([$data->gambar_1]);
+            $gambar = Storage::disk('public')->put('images/'.$data->lokasi->nama_tempat, $request->gambar_1);
+            $data->gambar_1 = $gambar;
+            $data->save();
+        }
+        if($request->hasFile('gambar_2')){
+            Storage::disk('public')->delete([$data->gambar_2]);
+            $gambar = Storage::disk('public')->put('images/'.$data->lokasi->nama_tempat, $request->gambar_2);
+            $data->gambar_2 = $gambar;
+            $data->save();
+        }
+        if($request->hasFile('gambar_3')){
+            Storage::delete([$data->gambar_3]);
+            $gambar = Storage::putFile('images/'.$data->lokasi->nama_tempat, $request->gambar_3);
+            $data->gambar_3 = $gambar;
+            $data->save();
+        }
+        return redirect()->route('tabeldata')->with('sukses', 'data berhasil');
+
+
+
+
 
         // $store_1 = $request->gambar_1->store('images/'.$data->lokasi->nama_tempat, 'public');
         // $gambar_1 = Storage::putFile('public/images', $request->gambar_1);
-        $gambar_1 = Storage::delete(['public/images/xQjeoMfds058bD4I0Z3mPB7J5Ipz1O96nR8EYaCD.jpeg']);
-        dd($gambar_1);
-        if($request->gambar)
+        // $gambar_1 = Storage::delete(['public/images/xQjeoMfds058bD4I0Z3mPB7J5Ipz1O96nR8EYaCD.jpeg']);
 
-        $store_2 = $request->gambar_2->store('images/'.$data->lokasi->nama_tempat, 'public');
-        $store_3 = $request->gambar_3->store('images/'.$data->lokasi->nama_tempat, 'public');
+
+
+        // if($request->gambar)
+
+        // $store_2 = $request->gambar_2->store('images/'.$data->lokasi->nama_tempat, 'public');
+        // $store_3 = $request->gambar_3->store('images/'.$data->lokasi->nama_tempat, 'public');
     }
 
     // menghapus data di dalam tabel dan database
     public function hapus($id){
             lokasi::where('id', $id)->delete();
-            return redirect()->route('tabeldata');
+            return redirect()->route('tabeldata')->with('sukses', 'data berhasil di hapus');
     }
 
     // menampilkan halaman input data dan mengambil data list kategori di model kateogri

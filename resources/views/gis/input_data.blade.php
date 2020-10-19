@@ -13,12 +13,18 @@
 @section('content')
     <div class="container">
         @if(session()->has('sukses'))
-            <div class="alert alert-success">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session()->get('sukses') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @elseif(session()->has('gagal'))
-            <div class="alert alert-danger">
+            <div class="alert alert-dangeralert-dismissible fade show" role="alert">
                 {{ session()->get('gagal') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         @endif
     </div>
