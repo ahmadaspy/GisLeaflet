@@ -79,8 +79,8 @@ class location extends Controller
             $data->save();
         }
         if($request->hasFile('gambar_3')){
-            Storage::delete([$data->gambar_3]);
-            $gambar = Storage::putFile('images/'.$data->lokasi->nama_tempat, $request->gambar_3);
+            Storage::disk('public')->delete([$data->gambar_3]);
+            $gambar = Storage::disk('public')->put('images/'.$data->lokasi->nama_tempat, $request->gambar_3);
             $data->gambar_3 = $gambar;
             $data->save();
         }
