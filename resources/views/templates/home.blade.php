@@ -77,6 +77,20 @@
           </div>
         </div>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSuperAdmin" aria-expanded="true" aria-controls="collapseSuperAdmin">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Super Admin Menu</span>
+        </a>
+        <div id="collapseSuperAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Menu:</h6>
+            <a class="collapse-item" href="/input/kategori">Input Kategori</a>
+            <a class="collapse-item" href="#">#</a>
+          </div>
+        </div>
+      </li>
 {{--
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">

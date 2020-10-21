@@ -8,6 +8,9 @@
             height: 500px;
             z-index: 0;
         }
+        .myicons {
+
+        }
     </style>
 @stop
 @section('content')
@@ -49,13 +52,36 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+
+        const myCustomColour = '#583470'
+
+        const markerHtmlStyles = `
+            background-color: ${myCustomColour};
+            width: 3rem;
+            height: 3rem;
+            display: block;
+            left: -1.5rem;
+            top: -1.5rem;
+            position: relative;
+            border-radius: 3rem 3rem 0;
+            transform: rotate(45deg);
+            border: 1px solid #FFFFFF`
+
+        const icon = L.divIcon({
+            className: "",
+            iconAnchor: [0, 24],
+            labelAnchor: [-6, 0],
+            popupAnchor: [0, -36],
+            html: `<span style="${markerHtmlStyles}" />`
+            })
+
         // perulangan untuk menampilkan semua data pada map
         var i = 0;
         for (i; i<lokasi.length;i++){
             //membuat link detail var i sebagai index
             var detail = "<a href = '/detail/" + lokasi[i].id + "' > Detail </a>";
             //memasukan variabel lokasi ke dalam map
-            L.marker([lokasi[i].lat, lokasi[i].longt]).addTo(map)
+            L.marker([lokasi[i].lat, lokasi[i].longt], {icon: icon}).addTo(map)
             .bindPopup(lokasi[i].nama_tempat + " " + detail)
             .openPopup();
         }

@@ -59,13 +59,14 @@ class location extends Controller
         return view('gis.edit_detail', compact('data'));
     }
 
-    // store edit data detail
+    // store dan edit, edit data detail
     public function edit_detail_data(Request $request){
         $data = detail::find($request->id);
         $data->judul = $request->judul;
         $data->deskripsi = $request->deskripsi;
         $data->link_video = $request->link_video;
         $data->save();
+        // menimpa gambar yg sudah ada dengan gambar terbaru
         if($request->hasFile('gambar_1')){
             Storage::disk('public')->delete([$data->gambar_1]);
             $gambar = Storage::disk('public')->put('images/'.$data->lokasi->nama_tempat, $request->gambar_1);
@@ -85,25 +86,12 @@ class location extends Controller
             $data->save();
         }
         return redirect()->route('tabeldata')->with('sukses', 'data berhasil');
-
-
-
-
-
-        // $store_1 = $request->gambar_1->store('images/'.$data->lokasi->nama_tempat, 'public');
-        // $gambar_1 = Storage::putFile('public/images', $request->gambar_1);
-        // $gambar_1 = Storage::delete(['public/images/xQjeoMfds058bD4I0Z3mPB7J5Ipz1O96nR8EYaCD.jpeg']);
-
-
-
-        // if($request->gambar)
-
-        // $store_2 = $request->gambar_2->store('images/'.$data->lokasi->nama_tempat, 'public');
-        // $store_3 = $request->gambar_3->store('images/'.$data->lokasi->nama_tempat, 'public');
     }
 
     // menghapus data di dalam tabel dan database
     public function hapus($id){
+            $data = lokasi::find($id);
+            Storage::disk('public')->deleteDirectory('images/'.$data->nama_tempat);
             lokasi::where('id', $id)->delete();
             return redirect()->route('tabeldata')->with('sukses', 'data berhasil di hapus');
     }

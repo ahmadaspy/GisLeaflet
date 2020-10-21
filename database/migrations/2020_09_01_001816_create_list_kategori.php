@@ -16,6 +16,7 @@ class CreateListKategori extends Migration
         Schema::create('list_kategori', function (Blueprint $table) {
             $table->id();
             $table->string('kategori');
+            $table->string('color');
             $table->timestamps();
         });
 

@@ -16,14 +16,13 @@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="{{ asset('storage/app'.$data->detail->gambar_1) }}" class="d-block w-100" alt="ini gambar">
-                {{ $data->detail->gambar_1 }}
+                <img src="{{ url('storage/'.$data->detail->gambar_1) }}" class="d-block w-100" alt="ini gambar">
               </div>
               <div class="carousel-item">
-                <img src="{{ asset('img/default.png') }}" class="d-block w-100" alt="ini gambar">
+                <img src="{{ url('storage/'.$data->detail->gambar_2) }}" class="d-block w-100" alt="ini gambar">
               </div>
               <div class="carousel-item">
-                <img src="{{ asset('img/default.png') }}" class="d-block w-100" alt="ini gambar">
+                <img src="{{ url('storage/'.$data->detail->gambar_3) }}" class="d-block w-100" alt="ini gambar">
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -41,9 +40,12 @@
                     <h3>{{ $data->nama_tempat }}</h3>
                 </div>
                 <p>
-                    <div class="embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
-                      </div>
+                    @if(isset($data->detail->link_video))
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="{{ $data->detail->link_video }}" allowfullscreen></iframe>
+                        </div>
+                    @endif
+                    {{ $data->detail->deskripsi }}
                 </p>
               </div>
           </div>

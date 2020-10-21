@@ -29,3 +29,6 @@ Route::post('/input_data', 'location@input_data');
 Route::Post('/edit', 'location@edit');
 Route::get('/hapus/{id}', 'location@hapus');
 
+Route::get('/input/kategori', 'SuperAdmin@ViewInputKategori');
+Route::post('/input/data/kategori', 'SuperAdmin@InputKategori');
+
