@@ -17,7 +17,7 @@ class CreateDetailLokasi extends Migration
             $table->id();
             $table->unsignedBigInteger('lokasi_id');
             $table->string('judul')->nullable();
-            $table->text('deskripsi')->nullable();
+            $table->string('deskripsi')->nullable();
             $table->string('gambar_1')->nullable();
             $table->string('gambar_2')->nullable();
             $table->string('gambar_3')->nullable();

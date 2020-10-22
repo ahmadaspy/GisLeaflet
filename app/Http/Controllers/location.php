@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\detail;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Exists;
 
 class location extends Controller
 {
@@ -18,12 +19,27 @@ class location extends Controller
         // berfungsi pada saat filter di cari
         if ($request->has('filter') ){
             $data = lokasi::where('kategori_id', $request->filter)->get();
+            if($data->count() > 0){
+                foreach($data as $datas){
+                    $color[] = $datas->kategori->color;
+                }
+            }else{
+                $color[] = (array)null;
+            }
 
         }else{
         // load page pertama dilakukan
             $data = lokasi::all();
+            if($data->count() > 0){
+                foreach($data as $datas){
+                    $color[] = $datas->kategori->color;
+                }
+            }else{
+                $color[] = (array)null;
+            }
+
         }
-        return view('gis.gis', compact('data', 'data_kategori'));
+        return view('gis.gis', compact('data', 'data_kategori', 'color'));
     }
 
     // menampilkan halaman detail
@@ -36,7 +52,6 @@ class location extends Controller
     // menampilkan data tabel ke halaman admin
     public function table_location(){
         $data = lokasi::simplePaginate(8);
-
         return view ('gis.tabel_lokasi', compact('data'));
     }
 
