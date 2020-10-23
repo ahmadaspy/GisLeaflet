@@ -64,33 +64,40 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseAdmin">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Admin Menu</span>
-        </a>
-        <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Menu:</h6>
-            <a class="collapse-item" href="/input">Input Data</a>
-            <a class="collapse-item" href="/data">Semua Data</a>
+      @if (Auth::check())
+        @if(Auth::user()->level == 'admin' || Auth::user()->level == 'superadmin')
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAdmin" aria-expanded="true" aria-controls="collapseAdmin">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Admin Menu</span>
+            </a>
+            <div id="collapseAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Menu:</h6>
+                <a class="collapse-item" href="/input">Input Data</a>
+                <a class="collapse-item" href="/data">Semua Data</a>
+            </div>
+            </div>
+        </li>
+        @endif
+        @if(auth()->user()->level == 'superadmin')
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSuperAdmin" aria-expanded="true" aria-controls="collapseSuperAdmin">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Super Admin Menu</span>
+          </a>
+          <div id="collapseSuperAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Menu:</h6>
+              <a class="collapse-item" href="/input/kategori">Input Kategori</a>
+              <a class="collapse-item" href="#">#</a>
+            </div>
           </div>
-        </div>
-      </li>
+        </li>
+        @endif
+      @endif
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSuperAdmin" aria-expanded="true" aria-controls="collapseSuperAdmin">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Super Admin Menu</span>
-        </a>
-        <div id="collapseSuperAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Menu:</h6>
-            <a class="collapse-item" href="/input/kategori">Input Kategori</a>
-            <a class="collapse-item" href="#">#</a>
-          </div>
-        </div>
-      </li>
+
 {{--
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -197,22 +204,36 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @auth
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                 {{-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Carbon\Carbon::now()->translatedFormat('l, d F Y') }} </span> --}}
                 {{-- <span id="waktu" class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Carbon\Carbon::now()->translatedFormat('H:i:s') }}</span> --}}
                 {{-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Carbon\Carbon::now()->translatedFormat('A') }} </span> --}}
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> Orang </span>
-              </a>
-              <!-- Dropdown - User Information -->
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ auth()->user()->name }} </span>
+                </a>
+                <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
               </div>
             </li>
+            @endauth
 
+            @guest
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('register') }}" id="userDropdown" role="button" >
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Register</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login" id="userDropdown" role="button" >
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Login</span>
+                </a>
+            </li>
+            @endguest
           </ul>
 
         </nav>
@@ -261,7 +282,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="{{ route('logout') }}">Logout</a>
         </div>
       </div>
     </div>

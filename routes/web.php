@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
+use Whoops\Util\TemplateHelper;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'location@show_location');
+Route::get('/', 'location@show_location')->name('home');
 Route::get('/detail/{id}', 'location@detail');
-
+Route::get('/login', 'AuthController@loginview')->name('login');
+Route::post('/postlogin', 'AuthController@postLogin');
+Route::get('/register', 'AuthController@regiseterview')->name('register');
+Route::post('/postRegister', 'AuthController@postRegister');
+Route::get('/logout', 'AuthController@logout')->name('logout');
 
 Route::get('/data', 'location@table_location')->name('tabeldata');
 
