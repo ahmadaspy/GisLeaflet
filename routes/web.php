@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Route;
+use Whoops\RunInterface;
 use Whoops\Util\TemplateHelper;
 
 /*
@@ -17,6 +18,10 @@ use Whoops\Util\TemplateHelper;
 |
 */
 
+
+
+
+
 Route::get('/', 'location@show_location')->name('home');
 Route::get('/detail/{id}', 'location@detail');
 Route::get('/login', 'AuthController@loginview')->name('login');
@@ -24,17 +29,29 @@ Route::post('/postlogin', 'AuthController@postLogin');
 Route::get('/register', 'AuthController@regiseterview')->name('register');
 Route::post('/postRegister', 'AuthController@postRegister');
 Route::get('/logout', 'AuthController@logout')->name('logout');
+Route::post('/profile/edit', 'AuthController@editProfile')->name('editProfile');
 
-Route::get('/data', 'location@table_location')->name('tabeldata');
+Route::group(['middleware' => ['auth', 'checkLevel:admin,superadmin']], function(){
+    Route::get('/edit/{id}', 'location@edit_location');
+    Route::get('/edit/detail/{id}', 'location@edit_detail');
+    Route::post('/edit/detail', 'location@edit_detail_data');
+    Route::get('/input', 'location@input')->name('input');
+    Route::post('/input_data', 'location@input_data');
+    Route::Post('/edit', 'location@edit');
+    Route::get('/hapus/{id}', 'location@hapus');
+    Route::get('/data', 'location@table_location')->name('tabeldata');
+    Route::get('/profile/{id}', 'AuthController@profileView')->name('profile');
+});
 
-Route::get('/edit/{id}', 'location@edit_location');
-Route::get('/edit/detail/{id}', 'location@edit_detail');
-Route::post('/edit/detail', 'location@edit_detail_data');
-Route::get('/input', 'location@input')->name('input');
-Route::post('/input_data', 'location@input_data');
-Route::Post('/edit', 'location@edit');
-Route::get('/hapus/{id}', 'location@hapus');
+Route::group(['middleware' => ['auth', 'checkLevel:superadmin']], function(){
+    Route::get('/list/kategori', 'SuperAdmin@listKategori')->name('listKategori');
+    Route::get('/input/kategori', 'SuperAdmin@ViewInputKategori')->name('inputKategori');
+    Route::post('/input/data/kategori', 'SuperAdmin@InputKategori');
+    Route::get('/tabel/user', 'SuperAdmin@ViewTableUser')->name('tabelUser');
+    Route::get('/tabel/user/delete/{id}', 'SuperAdmin@TableUserDelete')->name('userDelete');
+    Route::get('/input/data/user', 'SuperAdmin@ViewInputUser')->name('inputViewUser');
+    Route::post('/input/data/user', 'SuperAdmin@InputUser')->name('inputUser');
+});
 
-Route::get('/input/kategori', 'SuperAdmin@ViewInputKategori');
-Route::post('/input/data/kategori', 'SuperAdmin@InputKategori');
+
 

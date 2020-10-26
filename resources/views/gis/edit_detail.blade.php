@@ -3,6 +3,18 @@
     Detail Edit
 @endsection
 @section('content')
+    @if ($errors->any())
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="card shadow mb-4">
         <div class="card-header">
             {{ $data->lokasi->nama_tempat }}
@@ -18,9 +30,6 @@
                 <div class="form-group">
                     <label for="deskripsi">Deskripsi</label>
                     <textarea class="form-control" id="deskripsi" name="deskripsi" rows="8">{{ $data->deskripsi }}</textarea>
-                </div>
-                <div class="form-group">
-                    <label>Gambar</label>
                 </div>
                 <div class="form-group">
                     <label for="link_video">Link Video</label>

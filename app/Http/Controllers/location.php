@@ -14,6 +14,7 @@ use Illuminate\Validation\Rules\Exists;
 
 class location extends Controller
 {
+    // load home page pertama
     public function show_location(Request $request){
         $data_kategori = kategori::all();
         // berfungsi pada saat filter di cari
@@ -45,7 +46,8 @@ class location extends Controller
     // menampilkan halaman detail
     public function detail($id){
         $data = lokasi::find($id);
-        return view('gis.detail', compact('data'));
+        $paragraph = str_replace("\r", "<br/>", $data->detail->deskripsi);
+        return view('gis.detail', compact('data', 'paragraph'));
     }
 
 
@@ -76,12 +78,18 @@ class location extends Controller
 
     // store dan edit, edit data detail
     public function edit_detail_data(Request $request){
+        // membuat sebuah validate untuk upload file hanya jpeg, jpg, dan png
+        $rules = ['gambar_1' => 'mimes:jpeg,png,jpg |max:4096', 'gambar_2' => 'mimes:jpeg,png,jpg |max:4096', 'gambar_3' => 'mimes:jpeg,png,jpg |max:4096'];
+        $customMessages = ['mimes' => 'Harus jpeg atau png'];
+        $validate = $this->validate($request, $rules, $customMessages);
+
+        // mensave data detail dari request
         $data = detail::find($request->id);
         $data->judul = $request->judul;
         $data->deskripsi = $request->deskripsi;
         $data->link_video = $request->link_video;
         $data->save();
-        // menimpa gambar yg sudah ada dengan gambar terbaru
+        // menimpa gambar yg sudah ada dengan gambar terbaru jika belum ada akan menstore data gambar ke public/storage
         if($request->hasFile('gambar_1')){
             Storage::disk('public')->delete([$data->gambar_1]);
             $gambar = Storage::disk('public')->put('images/'.$data->lokasi->nama_tempat, $request->gambar_1);
@@ -101,6 +109,7 @@ class location extends Controller
             $data->save();
         }
         return redirect()->route('tabeldata')->with('sukses', 'data berhasil');
+
     }
 
     // menghapus data di dalam tabel dan database

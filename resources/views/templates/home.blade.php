@@ -11,6 +11,7 @@
   <meta name="author" content="">
 
   <title>@yield('title')</title>
+  <link rel="icon" href="{{ asset('assets/logo/logo.png') }}">
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -26,6 +27,12 @@
 
   {{-- costume style --}}
   @yield('costumestyle')
+  <style>
+      #icon{
+          height: 30px;
+          width: 30px;
+      }
+  </style>
 
 </head>
 
@@ -39,8 +46,8 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+        <div class="sidebar-brand-icon">
+          <img id="icon" src="{{ asset('assets/logo/logo.png') }}" alt="">
         </div>
         <div class="sidebar-brand-text mx-3">Map</div>
       </a>
@@ -89,8 +96,10 @@
           <div id="collapseSuperAdmin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header">Menu:</h6>
-              <a class="collapse-item" href="/input/kategori">Input Kategori</a>
-              <a class="collapse-item" href="#">#</a>
+              <a class="collapse-item" href="{{ route('inputKategori') }}">Input Kategori</a>
+              <a class="collapse-item" href="{{ route('listKategori') }}">List Kategori</a>
+              <a class="collapse-item" href="{{ route('inputViewUser') }}">Input User</a>
+              <a class="collapse-item" href="{{ route('tabelUser') }}">Tabel User</a>
             </div>
           </div>
         </li>
@@ -203,34 +212,39 @@
             <div class="topbar-divider d-none d-sm-block"></div>
 
             <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
             @auth
+            <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                 {{-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Carbon\Carbon::now()->translatedFormat('l, d F Y') }} </span> --}}
                 {{-- <span id="waktu" class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Carbon\Carbon::now()->translatedFormat('H:i:s') }}</span> --}}
                 {{-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ Carbon\Carbon::now()->translatedFormat('A') }} </span> --}}
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"> {{ auth()->user()->name }} </span>
+                    <i class="fas fa-users"></i>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small ml-2"> {{ auth()->user()->name }} </span>
                 </a>
                 <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="{{ route('profile', ['id' => auth()->user()->id]) }}">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Profile
+                    </a>
+                    <a class="dropdown-item" href="{{ route('logout') }}" data-toggle="modal" data-target="#logoutModal">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Logout
+                    </a>
+                </div>
             </li>
             @endauth
 
             @guest
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}" id="userDropdown" role="button" >
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Register</span>
+                <a class="nav-link" href="{{ route('register') }}" id="Register">
+                    <span>Register</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/login" id="userDropdown" role="button" >
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Login</span>
+                <a class="nav-link" href="/login" id="Login">
+                    <span>Login</span>
                 </a>
             </li>
             @endguest
@@ -274,12 +288,12 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Mau Logout ?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-body">Pilih Logout untuk keluar</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
           <a class="btn btn-primary" href="{{ route('logout') }}">Logout</a>
