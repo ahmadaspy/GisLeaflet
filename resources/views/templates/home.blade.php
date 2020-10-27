@@ -266,7 +266,7 @@
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; kopirightan 20</span>
+            <span>Copyright &copy; As Card Gaming</span>
           </div>
         </div>
       </footer>

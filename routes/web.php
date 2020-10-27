@@ -45,6 +45,9 @@ Route::group(['middleware' => ['auth', 'checkLevel:admin,superadmin']], function
 
 Route::group(['middleware' => ['auth', 'checkLevel:superadmin']], function(){
     Route::get('/list/kategori', 'SuperAdmin@listKategori')->name('listKategori');
+    Route::get('/list/kategori/hapus/{id}', 'SuperAdmin@listKategoriHapus')->name('listKategoriHapus');
+    Route::get('/list/kategori/edit/{id}', 'SuperAdmin@listKategoriEdit')->name('listKategoriEdit');
+    Route::post('/list/kategori/edit/input', 'SuperAdmin@listkategoriEditInput')->name('editInputKategori');
     Route::get('/input/kategori', 'SuperAdmin@ViewInputKategori')->name('inputKategori');
     Route::post('/input/data/kategori', 'SuperAdmin@InputKategori');
     Route::get('/tabel/user', 'SuperAdmin@ViewTableUser')->name('tabelUser');

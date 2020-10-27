@@ -29,18 +29,17 @@
                 <thead class="thead-dark">
                     <tr>
                         <th>No</th>
-                        <th>Aksi</th>
                         <th>Nama</th>
                         <th>E-mail</th>
                         <th>Level</th>
                         <th>Dibuat</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $key => $item)
                         <tr>
                             <td>{{ $data->firstItem() + $key }}</td>
-                            <td><a href="{{ route('userDelete', ['id' => $item->id]) }}" class="btn btn-danger"><i class="far fa-trash-alt text-white"></a></td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->email }}</td>
                             @if ($item->level == 'user')
@@ -53,6 +52,7 @@
                                 <td class="bg-success text-white">{{ $item->level }}</td>
                             @endif
                             <td>{{ $item->created_at }}</td>
+                            <td><a href="{{ route('userDelete', ['id' => $item->id]) }}" class="btn btn-danger"><i class="far fa-trash-alt text-white"></a></td>
                         </tr>
                     @endforeach
                 </tbody>

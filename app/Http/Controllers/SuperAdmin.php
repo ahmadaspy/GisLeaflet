@@ -60,9 +60,32 @@ class SuperAdmin extends Controller
             return redirect()->route('inputViewUser')->with('gagal', 'Gagal Ditambahkan');
         }
     }
-
+    // menampilkan list kategori
     public function listKategori(){
         $data = Kategori::Paginate(10);
         return view('gisSuperAdmin.tableKategori', compact('data'));
+    }
+    // view edit dari kategori
+    public function listKategoriEdit($id){
+        $data = kategori::find($id);
+        return view('gisSuperAdmin.editKategori', compact('data'));
+    }
+    // mengedit kategori
+    public function listkategoriEditInput(Request $request){
+        $data = kategori::find($request->id);
+        $data->kategori = $request->kategori;
+        $data->color = $request->color;
+        $query = $data->save();
+        if($query){
+            return redirect()->route('listKategori')->with('sukses', 'Berhasil Di Update');
+        }else{
+            return redirect()->route('listKategori')->with('gagal', 'Gagal DI Update');
+        }
+    }
+    // menhapus kategori
+    public function listKategoriHapus($id){
+        $data = kategori::find($id);
+        $data->delete();
+        return redirect()->route('listKategori')->with('sukses', 'Berhasil di hapus');
     }
 }

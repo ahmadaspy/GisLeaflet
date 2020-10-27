@@ -20,11 +20,11 @@
                 @csrf
                 <div class="form-group">
                     <label for="kategori">Nama Kategori</label>
-                    <input id="kategori" type="text" class="form-control" name="kategori">
+                    <input id="kategori" type="text" class="form-control" name="kategori" required>
                 </div>
                 <div class="form-group">
                     <label for="color">Pilih warna</label>
-                    <input id="color" class="form-control" type="color" name="color">
+                    <input id="color" class="form-control" type="color" name="color" required>
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
                 <button type="reset" class="btn btn-danger">Reset</button>
